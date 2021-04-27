@@ -1,0 +1,6 @@
+export const REGISTRATION_ROUTE = '/registration'
+export const SESSION_ROUTE = '/session'
+export const PHONEBOOK_ROUTE = '/phonebook'
+export const DEPARTMENT_ROUTE = '/department'
+export const POSITION_ROUTE = '/position'
+export const HOME_ROUTE = '/'
