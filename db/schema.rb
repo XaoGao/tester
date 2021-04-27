@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_085535) do
+ActiveRecord::Schema.define(version: 2021_04_27_091004) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.boolean "lock", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "login", default: "", null: false
+    t.string "password_digest"
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "middle_name", default: "", null: false
+    t.integer "role_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
 end
