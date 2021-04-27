@@ -10,7 +10,8 @@ class Api::V1::SessionController < Api::ApiController
       render_bad_request 'Не верный логин/пароль' and return
     end
 
-    render json: { token: 'test' }, status: :ok
+    token = JwtService::Encoder.encode(user)
+    render json: { token: token }, status: :ok
   end
 
   def destroy; end
