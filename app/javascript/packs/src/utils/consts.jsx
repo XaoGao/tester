@@ -1,5 +1,6 @@
 export const REGISTRATION_ROUTE = '/registration'
-export const SESSION_ROUTE = '/session'
+export const LOGOUT_ROUTE = '/logout'
+export const LOGIN_ROUTE = '/login'
 export const PHONEBOOK_ROUTE = '/phonebook'
 export const DEPARTMENT_ROUTE = '/department'
 export const POSITION_ROUTE = '/position'
