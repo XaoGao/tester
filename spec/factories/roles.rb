@@ -10,6 +10,7 @@
 #
 FactoryBot.define do
   factory :role do
-    
+    name { 'doctor' }
+    lock { false }
   end
 end

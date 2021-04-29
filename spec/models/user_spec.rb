@@ -19,5 +19,36 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "validations" do
+    context "require field" do
+      it { should validate_presence_of(:first_name) }
+      it { should validate_presence_of(:last_name) }
+      it { should validate_presence_of(:middle_name) }
+      it { should validate_presence_of(:login) }
+      it { should validate_presence_of(:password) }
+    end
+
+    context "length max" do
+      it { should validate_length_of(:first_name).is_at_most(50) }
+      it { should validate_length_of(:last_name).is_at_most(50) }
+      it { should validate_length_of(:middle_name).is_at_most(50) }
+      it { should validate_length_of(:login).is_at_most(50) }
+      it { should validate_length_of(:password).is_at_most(50) }
+    end
+
+    context "unique" do
+      it { should validate_uniqueness_of(:login).case_insensitive }
+    end
+  end
+
+  describe "methods" do
+    context ".full_name" do
+      let(:user) { build(:user, first_name: 'Jon', last_name: 'James', middle_name: 'Josh') }
+      it "full name user" do
+        expect(user.full_name).to eq("James Jon Josh")
+      end
+    end
+  end
 end

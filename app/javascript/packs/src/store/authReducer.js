@@ -1,10 +1,12 @@
 import { call } from '../http/userApi'
+import jwt_decode from "jwt-decode";
 
 const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
 
 const initialState = {
   isAuth: false,
-  fullName: ''
+  fullName: '',
+  role: 0
 }
 
 const authReducer = (state = initialState, action) => {
@@ -29,6 +31,10 @@ const setCurrentUser = (isAuth, fullName) => ({
 
 export const signup = (login, password) => async (dispatch) => { 
   return await call(login, password).then((response) => {
-    dispatch(setCurrentUser(true, 'test'));
+    if(response?.data?.token)
+    {
+      var decoded = jwt_decode(response.data.token);
+      dispatch(setCurrentUser(true, decoded.fullName, decoded.role));
+    }
   })
 }

@@ -18,7 +18,7 @@ module JwtService
 
       def generate_payload(user)
         exp = Time.now.to_i + 4 * 3600
-        { id: user.id, login: user.login, exp: exp }
+        { id: user.id, fullName: user.full_name, role: user.role.id, exp: exp }
       end
     end
   end

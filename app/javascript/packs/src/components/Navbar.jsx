@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
+  }
 }));
 
-const Navbar = () => {
+const Navbar = ({isAuth, fullName}) => {
   const classes = useStyles();
 
   return (
@@ -27,10 +29,23 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Tester
           </Typography>
-          <Button color="inherit">Войти</Button>
+          {
+            isAuth ? 
+            <Button variant="contained" className={classes.button}>{fullName}</Button>
+            :
+            <Link to="/login">
+              <Button variant="contained" className={classes.button}>Войти</Button>
+            </Link>
+          }
         </Toolbar>
       </AppBar>
     </div>
   );
 }
-export default Navbar;
+
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth,
+  fullName: state.auth.fullName
+});
+
+export default connect(mapStateToProps, {})(Navbar);
