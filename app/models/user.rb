@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  failed_attempt  :integer          default(0), not null
 #  first_name      :string           default(""), not null
 #  last_name       :string           default(""), not null
 #  login           :string           default(""), not null
@@ -26,8 +27,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :middle_name, presence: true, length: { maximum: 50 }
 
-  def failed_attempt!
-    p 'failed_attempt'
+  def faile_attempt!
+    update(failed_attempt: (failed_attempt + 1))
   end
 
   def full_name

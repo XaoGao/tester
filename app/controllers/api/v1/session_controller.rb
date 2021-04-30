@@ -6,7 +6,7 @@ class Api::V1::SessionController < Api::ApiController
     end
 
     unless user.authenticate(params[:password])
-      user.failed_attempt!
+      user.faile_attempt!
       render_bad_request 'Не верный логин/пароль' and return
     end
 

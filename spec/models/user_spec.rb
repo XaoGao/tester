@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  failed_attempt  :integer          default(0), not null
 #  first_name      :string           default(""), not null
 #  last_name       :string           default(""), not null
 #  login           :string           default(""), not null
@@ -48,6 +49,17 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, first_name: 'Jon', last_name: 'James', middle_name: 'Josh') }
       it "full name user" do
         expect(user.full_name).to eq("James Jon Josh")
+      end
+    end
+
+    context ".faile_attempt!" do
+      let(:user) { build(:user, failed_attempt: 0) }
+      it "before faile_attempt" do
+        expect(user.failed_attempt).to eq(0)
+      end
+      it "after faile_attempt" do
+        user.faile_attempt!
+        expect(user.failed_attempt).to eq(1)
       end
     end
   end
