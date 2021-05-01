@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { signup } from '../store/authReducer'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { alert } from '../utils/toast';
 
 
 const useStyles = makeStyles({
@@ -38,6 +39,16 @@ const Login = (props) => {
     return <Redirect to="/" />
   }
 
+  const signupHandler = (login, password) => {
+    props.signup(login, password)
+    .then((_) => {
+      alert.success("Добро пожаловать!")
+    })
+    .catch((error) => {
+      alert.error(error.message);
+    })
+  }
+
   return (
     <Box margin="auto" width={500}  textAlign="center">
       <Card className={classes.root}>
@@ -52,7 +63,7 @@ const Login = (props) => {
           <hr/>
         </CardContent>
         <CardActions>
-          <Button color="primary" variant="contained" onClick={() => props.signup(login, password)}>Войти</Button>
+          <Button color="primary" variant="contained" onClick={() => signupHandler(login, password)}>Войти</Button>
           <Button color="secondary" variant="contained" >Зарегистрироваться</Button>
         </CardActions>
       </Card>

@@ -32,7 +32,7 @@ export const initialApp = () => (dispatch) => {
     const decoded = jwt_decode(token)
     const now = new Date();
     let nowUtc = new Date(now.toString()).getTime() / 1000;
-    if (nowUtc < decoded.exp + 4 * 3600) {
+    if (nowUtc < decoded.exp) {
       dispatch(setCurrentUser(true, decoded.fullName, decoded.role));
     }
     else

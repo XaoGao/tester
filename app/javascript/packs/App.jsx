@@ -4,6 +4,7 @@ import Navbar from "./src/components/Navbar";
 import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
 import { initialApp } from './src/store/appReducer'
+import { ToastContainer } from 'react-toastify';
 
 const App = (props) => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const App = (props) => {
       <Container>
         <AppRouter />
       </Container>
+      <ToastContainer />
     </>
   );
 };

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { logout } from '../store/authReducer'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = ({isAuth, fullName}) => {
+const Navbar = (props) => {
   const classes = useStyles();
 
   return (
@@ -30,8 +31,11 @@ const Navbar = ({isAuth, fullName}) => {
             Tester
           </Typography>
           {
-            isAuth ? 
-            <Button variant="contained" className={classes.button}>{fullName}</Button>
+            props.isAuth ? 
+            <>
+              <Button variant="contained" className={classes.button}>{props.fullName}</Button>
+              <Button variant="contained" className={classes.button} onClick={() => props.logout()}>Выйти</Button>
+            </>
             :
             <Link to="/login">
               <Button variant="contained" className={classes.button}>Войти</Button>
@@ -48,4 +52,4 @@ const mapStateToProps = state => ({
   fullName: state.auth.fullName
 });
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);
