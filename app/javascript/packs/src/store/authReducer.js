@@ -24,9 +24,9 @@ const authReducer = (state = initialState, action) => {
 
 export default authReducer;
 
-const setCurrentUser = (isAuth, fullName) => ({
+export const setCurrentUser = (isAuth, fullName, role) => ({
   type: SET_CURRENT_USER,
-  payload: { isAuth, fullName } 
+  payload: { isAuth, fullName,role } 
 })
 
 export const signup = (login, password) => async (dispatch) => { 
@@ -34,6 +34,7 @@ export const signup = (login, password) => async (dispatch) => {
     if(response?.data?.token)
     {
       var decoded = jwt_decode(response.data.token);
+      localStorage.setItem('token', response.data.token)      
       dispatch(setCurrentUser(true, decoded.fullName, decoded.role));
     }
   })

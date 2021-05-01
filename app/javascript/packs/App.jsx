@@ -1,21 +1,26 @@
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './src/components/AppRouter';
-import Navbar from './src/components/Navbar';
-import Container from '@material-ui/core/Container';
-import { Provider } from 'react-redux'
-import store from './src/store/store'
+import React, { useEffect } from "react";
+import AppRouter from "./src/components/AppRouter";
+import Navbar from "./src/components/Navbar";
+import Container from "@material-ui/core/Container";
+import { connect } from "react-redux";
+import { initialApp } from './src/store/appReducer'
 
-const App = () => {
+const App = (props) => {
+  useEffect(() => {
+    props.initialApp();
+  }, [])
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <Navbar />
-        <Container>
-          <AppRouter/>
-        </Container>
-      </Provider>
-    </BrowserRouter>
-  )
-}
-export default App;
+    <>
+      <Navbar />
+      <Container>
+        <AppRouter />
+      </Container>
+    </>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  iappInit: state.app.init,
+});
+
+export default connect(mapStateToProps, { initialApp })(App);
