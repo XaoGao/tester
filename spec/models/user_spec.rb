@@ -6,6 +6,7 @@
 #  failed_attempt  :integer          default(0), not null
 #  first_name      :string           default(""), not null
 #  last_name       :string           default(""), not null
+#  lock            :boolean          default(FALSE), not null
 #  login           :string           default(""), not null
 #  middle_name     :string           default(""), not null
 #  password_digest :string
@@ -20,8 +21,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
-
   describe "validations" do
     context "require field" do
       it { should validate_presence_of(:first_name) }
@@ -54,12 +53,29 @@ RSpec.describe User, type: :model do
 
     context ".faile_attempt!" do
       let(:user) { build(:user, failed_attempt: 0) }
-      it "before faile_attempt" do
-        expect(user.failed_attempt).to eq(0)
-      end
-      it "after faile_attempt" do
+      it "cross 1 faile_attempt" do
+        user.update(failed_attempt: 0)
         user.faile_attempt!
         expect(user.failed_attempt).to eq(1)
+        expect(user.lock).to be false
+      end
+      it "cross 2 faile_attempt" do
+        user.update(failed_attempt: 1)
+        user.faile_attempt!
+        expect(user.failed_attempt).to eq(2)
+        expect(user.lock).to be false
+      end
+      it "cross 3 faile_attempt" do
+        user.update(failed_attempt: 2)
+        user.faile_attempt!
+        expect(user.failed_attempt).to eq(3)
+        expect(user.lock).to be false
+      end
+      it "cross 4 faile attempt" do
+        user.update(failed_attempt: 3)
+        user.faile_attempt!
+        expect(user.failed_attempt).to eq(3)
+        expect(user.lock).to be true
       end
     end
   end

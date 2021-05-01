@@ -6,6 +6,7 @@
 #  failed_attempt  :integer          default(0), not null
 #  first_name      :string           default(""), not null
 #  last_name       :string           default(""), not null
+#  lock            :boolean          default(FALSE), not null
 #  login           :string           default(""), not null
 #  middle_name     :string           default(""), not null
 #  password_digest :string
@@ -25,6 +26,7 @@ FactoryBot.define do
     login          { 'doctor' }
     password       { 'password' }
     failed_attempt { 0 }
+    lock           { false }
     association :role
   end
 end

@@ -6,6 +6,7 @@
 #  failed_attempt  :integer          default(0), not null
 #  first_name      :string           default(""), not null
 #  last_name       :string           default(""), not null
+#  lock            :boolean          default(FALSE), not null
 #  login           :string           default(""), not null
 #  middle_name     :string           default(""), not null
 #  password_digest :string
@@ -28,7 +29,12 @@ class User < ApplicationRecord
   validates :middle_name, presence: true, length: { maximum: 50 }
 
   def faile_attempt!
-    update(failed_attempt: (failed_attempt + 1))
+    attempt = failed_attempt + 1
+    if attempt > 3
+      update(lock: true)
+    else
+      update(failed_attempt: attempt)
+    end
   end
 
   def full_name

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_142848) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "failed_attempt", default: 0, null: false
+    t.boolean "lock", default: false, null: false
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 

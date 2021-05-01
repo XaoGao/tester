@@ -5,6 +5,10 @@ class Api::V1::SessionController < Api::ApiController
       render_bad_request 'Не верный логин/пароль' and return
     end
 
+    if user.lock
+      render_bad_request 'Пользователь заблокирован, обратитесь к администратору' and return
+    end
+
     unless user.authenticate(params[:password])
       user.faile_attempt!
       render_bad_request 'Не верный логин/пароль' and return
