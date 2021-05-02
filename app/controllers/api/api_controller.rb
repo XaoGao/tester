@@ -3,7 +3,11 @@ class Api::ApiController < ApplicationController
     render json: response_body, status: :ok
   end
 
-  def render_bad_request(message)
-    render json: { error: message }, status: :bad_request
+  def render_no_content
+    render json: {}, status: :no_content
+  end
+
+  def render_bad_request(response_body = {})
+    render json: response_body, status: :bad_request
   end
 end

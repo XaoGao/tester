@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post 'login', to: 'session#create'
-      delete 'logout', to: 'session#destroy'
+
+      resources :registration, only: %w[create update delete]
     end
   end
 
