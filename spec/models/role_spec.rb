@@ -21,6 +21,9 @@ RSpec.describe Role, type: :model do
     context 'unique fields' do
       it { should validate_uniqueness_of(:name).case_insensitive }
     end
+    context 'relationship' do
+      it { should have_many(:users) }
+    end
   end
   describe 'methods' do
     context '.doctor' do

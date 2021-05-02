@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { logout } from '../store/authReducer'
-import { LOGIN_ROUTE } from '../utils/consts';
+import { HOME_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  homeLink: {
+    color: 'white',
+    textDecoration: 'none'
   }
 }));
 
@@ -28,9 +32,11 @@ const Navbar = (props) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Tester
-          </Typography>
+            <Typography variant="h6" className={classes.title}>
+              <Link to={HOME_ROUTE} className={classes.homeLink}>
+                Tester
+              </Link>
+            </Typography>
           {
             props.isAuth ? 
             <>

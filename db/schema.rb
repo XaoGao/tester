@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_142848) do
+ActiveRecord::Schema.define(version: 2021_05_02_192841) do
+
+  create_table "positions", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "lock", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -30,7 +37,10 @@ ActiveRecord::Schema.define(version: 2021_04_30_142848) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "failed_attempt", default: 0, null: false
     t.boolean "lock", default: false, null: false
+    t.integer "position_id", null: false
+    t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "users", "positions"
 end

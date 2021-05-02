@@ -12,11 +12,17 @@
 #  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  position_id     :integer          not null
 #  role_id         :integer
 #
 # Indexes
 #
-#  index_users_on_role_id  (role_id)
+#  index_users_on_position_id  (position_id)
+#  index_users_on_role_id      (role_id)
+#
+# Foreign Keys
+#
+#  position_id  (position_id => positions.id)
 #
 require 'rails_helper'
 
@@ -39,7 +45,13 @@ RSpec.describe User, type: :model do
     end
 
     context 'unique' do
+      let!(:user) { create(:user) }
       it { should validate_uniqueness_of(:login).case_insensitive }
+    end
+
+    context 'relationship' do
+      it { should belong_to(:role) }
+      it { should belong_to(:position) }
     end
   end
 

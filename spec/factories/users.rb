@@ -12,11 +12,17 @@
 #  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  position_id     :integer          not null
 #  role_id         :integer
 #
 # Indexes
 #
-#  index_users_on_role_id  (role_id)
+#  index_users_on_position_id  (position_id)
+#  index_users_on_role_id      (role_id)
+#
+# Foreign Keys
+#
+#  position_id  (position_id => positions.id)
 #
 FactoryBot.define do
   factory :user do
@@ -28,5 +34,6 @@ FactoryBot.define do
     failed_attempt { 0 }
     lock           { false }
     association :role
+    association :position
   end
 end
