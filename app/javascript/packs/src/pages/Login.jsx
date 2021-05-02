@@ -7,11 +7,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import { signup } from '../store/authReducer'
+import { signin } from '../store/authReducer'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { alert } from '../utils/toast';
-
+import { Link } from 'react-router-dom'
+import { REGISTRATION_ROUTE } from '../utils/consts';
 
 const useStyles = makeStyles({
   root: {
@@ -39,8 +40,8 @@ const Login = (props) => {
     return <Redirect to="/" />
   }
 
-  const signupHandler = (login, password) => {
-    props.signup(login, password)
+  const signinHandler = (login, password) => {
+    props.signin(login, password)
     .then((_) => {
       alert.success("Добро пожаловать!")
     })
@@ -63,8 +64,10 @@ const Login = (props) => {
           <hr/>
         </CardContent>
         <CardActions>
-          <Button color="primary" variant="contained" onClick={() => signupHandler(login, password)}>Войти</Button>
-          <Button color="secondary" variant="contained" >Зарегистрироваться</Button>
+          <Button color="primary" variant="contained" onClick={() => signinHandler(login, password)}>Войти</Button>
+          <Link to={REGISTRATION_ROUTE}>
+            <Button color="secondary" variant="contained">Зарегистрироваться</Button>
+          </Link>
         </CardActions>
       </Card>
       </Box>
@@ -75,4 +78,4 @@ let mapStateToProps = (state) => {
     isAuth: state.auth.isAuth,
   };
 };
-export default connect(mapStateToProps, { signup })(Login)
+export default connect(mapStateToProps, { signin })(Login)

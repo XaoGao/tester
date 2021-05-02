@@ -10,4 +10,8 @@
 #
 class Role < ApplicationRecord
   has_many :users
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: {maximum: 50}
+
+  scope :doctor, -> { find_by(name: 'doctor')}
 end

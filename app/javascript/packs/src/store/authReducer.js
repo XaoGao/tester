@@ -1,4 +1,4 @@
-import { createSession } from '../http/userApi'
+import { createSession, createUser } from '../http/userApi'
 import jwt_decode from "jwt-decode";
 
 const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
@@ -29,7 +29,7 @@ export const setCurrentUser = (isAuth, fullName, role) => ({
   payload: { isAuth, fullName,role } 
 })
 
-export const signup = (login, password) => async (dispatch) => { 
+export const signin = (login, password) => async (dispatch) => { 
   return await createSession(login, password)
   .then((response) => {
     if(response.status === 200)
@@ -52,4 +52,12 @@ export const signup = (login, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('token');
   dispatch(setCurrentUser(false, '', 0));
+}
+export const signup = (firstName, lastName, middleName, login, password) => async (dispatch) => {
+  return await createUser(firstName, lastName, middleName, login, password, 'doctor')
+  .then((response) => {
+    if (response.status === 204) {
+      signin(login, password);
+    }
+  })
 }
