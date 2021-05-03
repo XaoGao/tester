@@ -7,7 +7,7 @@ module JwtService
       end
 
       def decode(token)
-        JWT.decode token, secret_key, true, { algorithm: DEFAULT_ALGORITHM }
+        JWT.decode(token, secret_key, true, { algorithm: DEFAULT_ALGORITHM })
       end
 
       private
