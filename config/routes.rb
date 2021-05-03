@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post 'login', to: 'session#create'
 
       resources :registration, only: %w[create update delete]
+      resources :positions, only: %w[index create update delete]
     end
   end
 
