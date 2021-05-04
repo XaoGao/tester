@@ -12,22 +12,26 @@
 #  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  department_id   :integer          not null
 #  position_id     :integer          not null
 #  role_id         :integer
 #
 # Indexes
 #
-#  index_users_on_position_id  (position_id)
-#  index_users_on_role_id      (role_id)
+#  index_users_on_department_id  (department_id)
+#  index_users_on_position_id    (position_id)
+#  index_users_on_role_id        (role_id)
 #
 # Foreign Keys
 #
-#  position_id  (position_id => positions.id)
+#  department_id  (department_id => departments.id)
+#  position_id    (position_id => positions.id)
 #
 class User < ApplicationRecord
   has_secure_password
   belongs_to :role
   belongs_to :position
+  belongs_to :department
 
   validates :login, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :password, presence: true, length: { maximum: 50 }

@@ -4,8 +4,8 @@ class RegistrationService::Create < Service
     return error(nil, 'Нет необходимой роли, обратитесь к администратору!') if role.blank?
 
     user.role = role
-    position = Position.default
-    user.position = position
+    user.position = Position.default
+    user.department = Department.default
 
     save(user)
   end

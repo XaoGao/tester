@@ -7,7 +7,7 @@ RSpec.describe 'Registrations', type: :request do
       it 'success' do
         post '/api/v1/registration', params: { registration: { first_name: 'jon', last_name: 'josh', middle_name: 'don', password: 'password', login: 'login', role: 'doctor' }}
 
-        expect(response.status).to eq(204)
+        expect(response).to have_http_status(:no_content)
       end
       it 'role doctor have not found' do
         post '/api/v1/registration', params: { registration: { first_name: 'jon', last_name: 'josh', middle_name: 'don', password: 'password', login: 'login', role: '-' }}

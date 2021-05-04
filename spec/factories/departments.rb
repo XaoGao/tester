@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: positions
+# Table name: departments
 #
 #  id         :integer          not null, primary key
-#  lock       :boolean          not null
+#  lock       :boolean          default(FALSE), not null
 #  name       :string           not null
-#  sort_level :integer          default(0), not null
+#  sort_level :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 FactoryBot.define do
-  factory :position do
+  factory :department do
     name       { Faker::Name.unique.name  }
     lock       { false }
     sort_level { 0 }
