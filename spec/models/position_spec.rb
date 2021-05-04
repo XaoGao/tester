@@ -38,5 +38,14 @@ RSpec.describe Position, type: :model do
         expect(position_default.name).to eq('default')
       end
     end
+    context '.all_except_default' do
+      let!(:positions) { create_list(:position, 2) }
+      it 'success' do
+        default_position = create(:position, name: 'default')
+        positions_from_repo = Position.all_except_default
+        expect(positions_from_repo.count).to eq(2)
+        expect(positions_from_repo.include?(default_position)).to be false
+      end
+    end
   end
 end

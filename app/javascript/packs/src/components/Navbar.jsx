@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { logout } from '../store/authReducer'
-import { HOME_ROUTE, LOGIN_ROUTE } from '../utils/consts';
+import { HOME_ROUTE, LOGIN_ROUTE, POSITION_ROUTE } from '../utils/consts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +35,9 @@ const Navbar = (props) => {
             <Typography variant="h6" className={classes.title}>
               <Link to={HOME_ROUTE} className={classes.homeLink}>
                 Tester
+              </Link>
+              <Link to={POSITION_ROUTE} className={classes.homeLink}>
+                Отделы
               </Link>
             </Typography>
           {

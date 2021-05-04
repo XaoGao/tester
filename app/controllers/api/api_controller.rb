@@ -27,7 +27,7 @@ class Api::ApiController < ApplicationController
 
   def decoded
     begin
-      payload = JwtService::Encoder.decode token
+      JwtService::Encoder.decode token
     rescue => exception
       nil
     end
@@ -38,9 +38,9 @@ class Api::ApiController < ApplicationController
   end
 
   def user_from_token
-    if decoded
-      user_id = decoded[0]["id"]
-      @current_user = User.find(user_id)
-    end
+    return unless decoded
+
+    user_id = decoded[0]['id']
+    @current_user = User.find(user_id)
   end
 end
