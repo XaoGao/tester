@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
       resources :registration, only: %w[create update delete]
       resources :positions, only: %w[index create update delete]
+      resources :departments, only: %w[index create update delete]
     end
   end
 

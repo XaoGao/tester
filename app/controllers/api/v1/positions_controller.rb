@@ -3,6 +3,6 @@ class Api::V1::PositionsController < Api::ApiController
 
   def index
     positions = Position.all_except_default
-    render json: { positions: PositionSerializer.new(positions) }, status: :ok
+    render_ok({ positions: PositionSerializer.new(positions) })
   end
 end
