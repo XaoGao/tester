@@ -30,8 +30,8 @@
 class User < ApplicationRecord
   has_secure_password
   belongs_to :role
-  belongs_to :position
-  belongs_to :department
+  belongs_to :position, counter_cache: true
+  belongs_to :department, counter_cache: true
 
   validates :login, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :password, presence: true, length: { maximum: 50 }

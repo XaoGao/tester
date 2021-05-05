@@ -1,16 +1,16 @@
 require 'faker'
 
-%w[doctor patient hr registrar admin].each do |role|
-  Role.create(name: role)
-end
+# %w[doctor patient hr registrar admin].each do |role|
+#   Role.create(name: role)
+# end
 
-['default', 'Администрация', 'Отдел кадров', 'Бухгалтерия', 'Системное программирования'].each_with_index do |p, i|
-  Position.create(name: p, lock: false, sort_level: i)
-end
+# ['default', 'Администрация', 'Отдел кадров', 'Бухгалтерия', 'Системное программирования'].each_with_index do |p, i|
+#   Position.create(name: p, lock: false, sort_level: i)
+# end
 
-['default', 'Директор', 'Заместитель Директора', 'Начальник отдела', 'Инженер'].each_with_index do |d, i|
-  Department.create(name: d, lock: false, sort_level: i)
-end
+# ['default', 'Директор', 'Заместитель Директора', 'Начальник отдела', 'Инженер'].each_with_index do |d, i|
+#   Department.create(name: d, lock: false, sort_level: i)
+# end
 
 Role.all.each do |role|
   User.create(
