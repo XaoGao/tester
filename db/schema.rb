@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_162119) do
+ActiveRecord::Schema.define(version: 2021_05_06_105305) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2021_05_05_162119) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "users_count", default: 0, null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string "number", default: "", null: false
+    t.string "slug", default: ""
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -50,11 +57,14 @@ ActiveRecord::Schema.define(version: 2021_05_05_162119) do
     t.boolean "lock", default: false, null: false
     t.integer "position_id", null: false
     t.integer "department_id", null: false
+    t.integer "phone_id"
     t.index ["department_id"], name: "index_users_on_department_id"
+    t.index ["phone_id"], name: "index_users_on_phone_id"
     t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "users", "departments"
+  add_foreign_key "users", "phones"
   add_foreign_key "users", "positions"
 end
