@@ -1,28 +1,32 @@
 require 'rails_helper'
 
+URL = '/api/v1/login'.freeze
+
 RSpec.describe 'Sessions', type: :request do
   describe 'POST /login' do
-    URL = '/api/v1/login'.freeze
     context 'when logged in' do
       let!(:user) { create(:user, login: 'doctor', password: 'password') }
+      let(:session_params) { { login: 'doctor', password: 'password' } }
       it 'success' do
-        post URL, params: { login: 'doctor', password: 'password' }
-        expect(response.status).to eq(200)
-        expect(JSON.parse(response.body).size).to eq(1)
-        expect(JSON.parse(response.body).include?('token')).to be true
+        post URL, params: session_params
+        expect(response).to have_http_status(:ok)
+        expect(response_body.size).to eq(1)
+        expect(response_body.include?('token')).to be true
       end
       it "dosen't exist user" do
-        post URL, params: { login: 'doctor1', password: 'password' }
-        expect(response.status).to eq(400)
+        session_params[:login] = '-'
+        post URL, params: session_params
+        expect(response).to have_http_status(:bad_request)
       end
       it 'user is lock' do
         user.update(lock: true)
-        post URL, params: { login: 'doctor', password: 'password' }
-        expect(response.status).to eq(400)
+        post URL, params: session_params
+        expect(response).to have_http_status(:bad_request)
       end
       it 'wrong password' do
-        post URL, params: { login: 'doctor', password: 'password1' }
-        expect(response.status).to eq(400)
+        session_params[:password] = '-'
+        post URL, params: session_params
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end
