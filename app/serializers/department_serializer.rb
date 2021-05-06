@@ -14,5 +14,5 @@ class DepartmentSerializer
   include FastJsonapi::ObjectSerializer
   set_key_transform :camel_lower
 
-  attributes :name
+  attributes :name, :sort_level
 end

@@ -12,7 +12,7 @@
 #
 FactoryBot.define do
   factory :department do
-    name       { Faker::Name.unique.name  }
+    name       { Faker::Name.unique.name }
     lock       { false }
     sort_level { 0 }
   end
