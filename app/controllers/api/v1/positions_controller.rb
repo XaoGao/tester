@@ -2,7 +2,7 @@ class Api::V1::PositionsController < Api::ApiController
   before_action :authorized
 
   def index
-    positions = Position.all_except_default
+    positions = Position.all_except_default.order(:sort_level)
     render_ok({ positions: PositionSerializer.new(positions) })
   end
 

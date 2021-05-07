@@ -2,7 +2,7 @@ class Api::V1::DepartmentsController < Api::ApiController
   before_action :authorized
 
   def index
-    departments = Department.all_except_default
+    departments = Department.all_except_default.order(:sort_level)
     render_ok({ departments: DepartmentSerializer.new(departments) })
   end
 

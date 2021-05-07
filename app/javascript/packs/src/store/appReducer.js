@@ -2,11 +2,11 @@ import jwt_decode from "jwt-decode";
 import { setCurrentUser } from './authReducer'
 const SET_APP_STATE = 'app/SET_APP_STATE'
 
-const initialStore = {
+const initialState = {
   init: false
 }
 
-const appReducer = (state = initialStore, action) => {
+const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_APP_STATE:
       return {

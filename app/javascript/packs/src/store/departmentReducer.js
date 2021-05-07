@@ -1,17 +1,16 @@
-import { getAllPositions } from "../http/positionApi";
+import { getAllDepartments } from "../http/departmentApi";
 
-const SET_POSITIONS = "position/SET_POSITIONS";
+const SET_DEPATMENTS = "department/SET_DEPARTMENTS";
 const SET_LOADING = "department/SET_LOADING";
 
 const initialState = {
   loading: false,
-  positions: [],
-  position: null,
+  departments: [],
 };
 
-const positionReducer = (state = initialState, action) => {
+const departmentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_POSITIONS:
+    case SET_DEPATMENTS:
       return {
         ...state,
         ...action.payload,
@@ -25,10 +24,11 @@ const positionReducer = (state = initialState, action) => {
       return state;
   }
 };
+export default departmentReducer;
 
-const setPositions = (positions) => ({
-  type: SET_POSITIONS,
-  payload: { positions: positions },
+const setDepartment = (departments) => ({
+  type: SET_DEPATMENTS,
+  payload: { departments: departments },
 });
 
 const setLoading = (flag) => ({
@@ -36,15 +36,13 @@ const setLoading = (flag) => ({
   payload: { loading: flag },
 });
 
-export const getPositions = () => async (dispatch) => {
+export const getDepartments = () => async (dispatch) => {
   dispatch(setLoading(true));
-  return await getAllPositions()
+  await getAllDepartments()
     .then((response) => {
       if (response.status === 200) {
-        dispatch(setPositions(response.data.positions.data));
+        dispatch(setDepartment(response.data.departments.data));
       }
     })
     .finally(() => dispatch(setLoading(false)));
 };
-
-export default positionReducer;

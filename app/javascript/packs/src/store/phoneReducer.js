@@ -1,17 +1,16 @@
-import { getAllPositions } from "../http/positionApi";
+import { getAllPhones } from "../http/phoneApi";
 
-const SET_POSITIONS = "position/SET_POSITIONS";
+const SET_PHONES = "phones/SET_PHONES";
 const SET_LOADING = "department/SET_LOADING";
 
 const initialState = {
   loading: false,
-  positions: [],
-  position: null,
+  phones: [],
 };
 
-const positionReducer = (state = initialState, action) => {
+const phoneReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_POSITIONS:
+    case SET_PHONES:
       return {
         ...state,
         ...action.payload,
@@ -26,9 +25,11 @@ const positionReducer = (state = initialState, action) => {
   }
 };
 
-const setPositions = (positions) => ({
-  type: SET_POSITIONS,
-  payload: { positions: positions },
+export default phoneReducer;
+
+const setPhones = (phones) => ({
+  type: SET_ALL_PHONES,
+  payload: { phones: phones },
 });
 
 const setLoading = (flag) => ({
@@ -36,15 +37,14 @@ const setLoading = (flag) => ({
   payload: { loading: flag },
 });
 
-export const getPositions = () => async (dispatch) => {
+
+export const getPhones = () => async (dispatch) => {
   dispatch(setLoading(true));
-  return await getAllPositions()
+  return await getAllPhones()
     .then((response) => {
       if (response.status === 200) {
-        dispatch(setPositions(response.data.positions.data));
+        dispatch(setPhones(response.data.phones.data));
       }
     })
     .finally(() => dispatch(setLoading(false)));
 };
-
-export default positionReducer;

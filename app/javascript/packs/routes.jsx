@@ -4,7 +4,8 @@ import Phonebook from "./src/pages/Phonebook";
 import Position from "./src/pages/Position";
 import Registration from "./src/pages/Registration";
 import Login from "./src/pages/Login";
-import { DEPARTMENT_ROUTE, HOME_ROUTE, PHONEBOOK_ROUTE, POSITION_ROUTE, REGISTRATION_ROUTE, LOGIN_ROUTE } from "./src/utils/consts";
+import { DEPARTMENT_ROUTE, HOME_ROUTE, PHONEBOOK_ROUTE, POSITION_ROUTE, REGISTRATION_ROUTE, LOGIN_ROUTE, PHONES_ROUTE } from "./src/utils/consts";
+import Phones from "./src/pages/Phones";
 
 export const authRoutes = [
   {
@@ -22,6 +23,10 @@ export const authRoutes = [
   {
     path: POSITION_ROUTE,
     Component: Position
+  },
+  {
+    path: PHONES_ROUTE,
+    Component: Phones
   },
 ]
 

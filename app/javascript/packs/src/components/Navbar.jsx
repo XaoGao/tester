@@ -1,13 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
-import { logout } from '../store/authReducer'
-import { HOME_ROUTE, LOGIN_ROUTE, POSITION_ROUTE } from '../utils/consts';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import { logout } from "../store/authReducer";
+import MainDropdown from "./navbar/MainDropdown";
+import ListItems from "./navbar/ListItems";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  homeLink: {
-    color: 'white',
-    textDecoration: 'none'
-  }
 }));
 
 const Navbar = (props) => {
@@ -32,34 +28,23 @@ const Navbar = (props) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              <Link to={HOME_ROUTE} className={classes.homeLink}>
-                Tester
-              </Link>
-              <Link to={POSITION_ROUTE} className={classes.homeLink}>
-                Отделы
-              </Link>
-            </Typography>
-          {
-            props.isAuth ? 
-            <>
-              <Button variant="contained" className={classes.button}>{props.fullName}</Button>
-              <Button variant="contained" className={classes.button} onClick={() => props.logout()}>Выйти</Button>
-            </>
-            :
-            <Link to={LOGIN_ROUTE}>
-              <Button variant="contained" className={classes.button}>Войти</Button>
-            </Link>
-          }
+          <Typography variant="h6" className={classes.title}>
+            <ListItems/>
+          </Typography>
+          <MainDropdown
+            isAuth={props.isAuth}
+            fullName={props.fullName}
+            logout={props.logout}
+          />
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
-  fullName: state.auth.fullName
+  fullName: state.auth.fullName,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
