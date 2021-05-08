@@ -5,10 +5,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'login', to: 'session#create'
 
-      resources :registration, only: %w[create update delete]
-      resources :positions, only: %w[index create update delete]
-      resources :departments, only: %w[index create update delete]
-      resources :phones, only: %w[index create update delete]
+      resources :registration, only: %w[create update destroy]
+      resources :positions, only: %w[index create update destroy]
+      resources :departments, only: %w[index create update destroy]
+      resources :phones, only: %w[index create update destroy]
+      resources :phonebooks, only: %w[index]
     end
   end
 

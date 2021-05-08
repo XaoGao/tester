@@ -67,4 +67,25 @@ RSpec.describe 'Positions', type: :request do
       end
     end
   end
+
+  describe 'DELETE /destroy' do
+    context 'lock a position' do
+      let(:position_repo) { create(:position, lock: false) }
+      let(:user) { create(:user, position: position_repo) }
+      it 'unauthorized request' do
+        delete "/api/v1/positions/#{position_repo.id}"
+        expect(response).to have_http_status(:unauthorized)
+      end
+      it 'position have not found' do
+        delete '/api/v1/positions/2', headers: authenticated_header(user)
+        expect(response.body).to match('Должность не найдена!')
+        expect(response).to have_http_status(:bad_request)
+      end
+      it 'success' do
+        delete "/api/v1/positions/#{position_repo.id}", headers: authenticated_header(user)
+        expect(Position.find(position_repo.id).lock).to be true
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+  end
 end

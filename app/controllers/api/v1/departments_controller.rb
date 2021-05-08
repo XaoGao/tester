@@ -18,14 +18,23 @@ class Api::V1::DepartmentsController < Api::ApiController
 
   def update
     department = Department.find_by(id: params[:id])
-    if department.present?
-      if department.update department_params
-        render_ok({ department: DepartmentSerializer.new(department) })
-      else
-        render_bad_request(department.errors.full_messages)
-      end
+    render_bad_request 'Отдел не найден!' and return unless department.present?
+
+    if department.update department_params
+      render_ok({ department: DepartmentSerializer.new(department) })
     else
-      render_bad_request 'Отдел не найден!'
+      render_bad_request(department.errors.full_messages)
+    end
+  end
+
+  def destroy
+    department = Department.find_by(id: params[:id])
+    render_bad_request 'Отдел не найден!' and return unless department.present?
+
+    if department.update(lock: true)
+      render_no_content
+    else
+      render_bad_request(department.errors.full_messages)
     end
   end
 

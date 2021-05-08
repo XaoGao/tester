@@ -69,4 +69,25 @@ RSpec.describe 'Departments', type: :request do
       end
     end
   end
+
+  describe 'DELETE /destroy' do
+    context 'lock a department' do
+      let(:department_repo) { create(:department, lock: false) }
+      let(:user) { create(:user, department: department_repo) }
+      it 'unauthorized request' do
+        delete "/api/v1/departments/#{department_repo.id}"
+        expect(response).to have_http_status(:unauthorized)
+      end
+      it 'department have not found' do
+        delete '/api/v1/departments/2', headers: authenticated_header(user)
+        expect(response.body).to match('Отдел не найден!')
+        expect(response).to have_http_status(:bad_request)
+      end
+      it 'success' do
+        delete "/api/v1/departments/#{department_repo.id}", headers: authenticated_header(user)
+        expect(Department.find(department_repo.id).lock).to be true
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+  end
 end

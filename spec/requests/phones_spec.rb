@@ -10,7 +10,7 @@ RSpec.describe 'Phones', type: :request do
         get '/api/v1/phones', headers: authenticated_header(user)
         expect(response).to have_http_status(:ok)
         expect(response_body).to have_key('phones')
-        expect(response.body).to match(phones.first.number)
+        expect(response_body['phones']['data'].first['attributes']['number']).to match(phones.first.number)
         expect(response_body).not_to be_empty
       end
     end

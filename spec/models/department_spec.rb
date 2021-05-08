@@ -49,5 +49,21 @@ RSpec.describe Department, type: :model do
         expect(departments_from_repo.include?(default_department)).to be false
       end
     end
+    context '.active' do
+      let!(:departments) { create_list(:department, 3, lock: false) }
+      let!(:department) { create(:department, lock: true) }
+      it 'get all active' do
+        expect(Department.all.count).to eq(4)
+        expect(Department.active.count).to eq(3)
+      end
+    end
+    context '.desable' do
+      let!(:departments) { create_list(:department, 3, lock: false) }
+      let!(:department) { create(:department, lock: true) }
+      it 'get all desable' do
+        expect(Department.all.count).to eq(4)
+        expect(Department.desable.count).to eq(1)
+      end
+    end
   end
 end
