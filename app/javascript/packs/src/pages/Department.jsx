@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import CardEl from '../components/phonebook/CardEl';
-import { getDepartments } from '../store/departmentReducer'
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import CardEl from "../components/phonebook/CardEl";
+import { getDepartments, updateDepartment } from "../store/departmentReducer";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -18,34 +18,42 @@ const useStyles = makeStyles({
 const Department = (props) => {
   const classes = useStyles();
   useEffect(() => {
-    props.getDepartments()
+    props.getDepartments();
   }, []);
 
-  const departmentsCard = props.departments.map(d => <CardEl key={d.id} attributes={d.attributes} buttonName="Редактировать"/>)
+  const departmentsCard = props.departments.map((d) => (
+    <CardEl
+      key={d.id}
+      id={d.id}
+      attributes={d.attributes}
+      buttonName="Редактировать"
+      update={props.updateDepartment}
+    />
+  ));
 
   return (
     <>
-      {
-        props.loading ?
-        <div>Ожидайте</div> : 
-        <Box
-          className={classes.root}
-        >
+      {props.loading ? (
+        <div>Ожидайте</div>
+      ) : (
+        <Box className={classes.root}>
           <Typography variant="h3" component="h2">
             Отделы
           </Typography>
           {departmentsCard}
         </Box>
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
 let mapStateToProps = (state) => {
   return {
     loading: state.department.loading,
-    departments: state.department.departments
-  }
-}
+    departments: state.department.departments,
+  };
+};
 
-export default connect(mapStateToProps, { getDepartments })(Department);
+export default connect(mapStateToProps, { getDepartments, updateDepartment })(
+  Department
+);

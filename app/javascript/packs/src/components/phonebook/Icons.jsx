@@ -13,12 +13,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Icons = () => {
+const Icons = (props) => {
   const classes = useStyles();
   return (
     <>
       <Button title="Редактировать">
-        <EditIcon color="primary" className={classes.icon} fontSize="large" />
+        <EditIcon color="primary" className={classes.icon} fontSize="large" onClick={props.openModal}/>
       </Button>
       <Button title="Заблокировать">
         <DeleteIcon

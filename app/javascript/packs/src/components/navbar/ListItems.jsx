@@ -21,7 +21,7 @@ const ListItems = () => {
     <List
       component="nav"
       aria-labelledby="main navigation"
-      className={classes.navDisplayFlex} // this
+      className={classes.navDisplayFlex}
     >
       <Link to={HOME_ROUTE} className={classes.linkText}>
         <ListItem button>
