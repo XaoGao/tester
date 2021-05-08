@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import CardEl from "../components/phonebook/CardEl";
-import { getDepartments, updateDepartment } from "../store/departmentReducer";
+import {
+  getDepartments,
+  updateDepartment,
+  createDepartment,
+} from "../store/departmentReducer";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import CreateButton from "../components/phonebook/CreateButton";
 
 const useStyles = makeStyles({
   root: {
@@ -12,6 +17,9 @@ const useStyles = makeStyles({
   },
   el: {
     marginTop: 25,
+  },
+  createButton: {
+    margin: "auto",
   },
 });
 
@@ -37,9 +45,12 @@ const Department = (props) => {
         <div>Ожидайте</div>
       ) : (
         <Box className={classes.root}>
-          <Typography variant="h3" component="h2">
-            Отделы
-          </Typography>
+          <Box display="flex" className={classes.createButton}>
+            <Typography variant="h3" component="h2">
+              Отделы
+            </Typography>
+            <CreateButton create={props.createDepartment} />
+          </Box>
           {departmentsCard}
         </Box>
       )}
@@ -54,6 +65,8 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getDepartments, updateDepartment })(
-  Department
-);
+export default connect(mapStateToProps, {
+  getDepartments,
+  updateDepartment,
+  createDepartment,
+})(Department);

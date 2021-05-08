@@ -8,3 +8,7 @@ export const updatePositionApi = async (id, name, sortLevel, lock) => {
   const response = await $authHost.put(`api/v1/positions/${id}`, {name: name, sortLevel: sortLevel, lock: lock});
   return response;
 }
+export const createPositionApi = async (name, sortLevel, lock) => {
+  const response = await $authHost.post(`api/v1/positions`, {name: name, sortLevel: sortLevel, lock: lock});
+  return response;
+}

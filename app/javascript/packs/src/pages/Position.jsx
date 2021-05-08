@@ -3,8 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { connect } from "react-redux";
-import { getPositions, updatePosition } from "../store/positionReducer";
+import {
+  getPositions,
+  updatePosition,
+  createPosition,
+} from "../store/positionReducer";
 import CardEl from "../components/phonebook/CardEl";
+import CreateButton from "../components/phonebook/CreateButton";
 
 const useStyles = makeStyles({
   root: {
@@ -12,6 +17,9 @@ const useStyles = makeStyles({
   },
   el: {
     marginTop: 25,
+  },
+  createButton: {
+    margin: "auto",
   },
 });
 
@@ -39,9 +47,12 @@ const Position = (props) => {
       ) : (
         <>
           <Box className={classes.root}>
-            <Typography variant="h3" component="h2">
-              Должности
-            </Typography>
+            <Box display="flex" className={classes.createButton}>
+              <Typography variant="h3" component="h2">
+                Должности
+              </Typography>
+              <CreateButton create={props.createPosition} />
+            </Box>
             {positionsCard}
           </Box>
         </>
@@ -58,6 +69,8 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getPositions, updatePosition })(
-  Position
-);
+export default connect(mapStateToProps, {
+  getPositions,
+  updatePosition,
+  createPosition,
+})(Position);

@@ -1,6 +1,7 @@
-import { getAllPhones } from "../http/phoneApi";
+import { getAllPhonesApi, updatePhoneApi } from "../http/phoneApi";
 
 const SET_PHONES = "phones/SET_PHONES";
+const SET_PHONE = "phones/SET_PHONE";
 const SET_LOADING = "department/SET_LOADING";
 
 const initialState = {
@@ -28,8 +29,13 @@ const phoneReducer = (state = initialState, action) => {
 export default phoneReducer;
 
 const setPhones = (phones) => ({
-  type: SET_ALL_PHONES,
+  type: SET_PHONES,
   payload: { phones: phones },
+});
+
+const setPhone = (phone) => ({
+  type: SET_PHONE,
+  payload: { phone: phone },
 });
 
 const setLoading = (flag) => ({
@@ -40,7 +46,7 @@ const setLoading = (flag) => ({
 
 export const getPhones = () => async (dispatch) => {
   dispatch(setLoading(true));
-  return await getAllPhones()
+  return await getAllPhonesApi()
     .then((response) => {
       if (response.status === 200) {
         dispatch(setPhones(response.data.phones.data));
@@ -48,3 +54,11 @@ export const getPhones = () => async (dispatch) => {
     })
     .finally(() => dispatch(setLoading(false)));
 };
+export const updatePhone = (id, number) => async (dispatch) => {
+  return await updatePhoneApi(id, number)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setPhone(response.data.phone.data));
+      }
+    })
+}
