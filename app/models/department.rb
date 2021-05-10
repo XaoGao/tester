@@ -15,4 +15,8 @@ class Department < ApplicationRecord
   include Activeable
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
+
+  # def self.not_empty
+  #   joins(:responses)
+  # end
 end

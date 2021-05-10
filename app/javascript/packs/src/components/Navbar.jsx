@@ -8,7 +8,6 @@ import { logout } from "../store/authReducer";
 import MainDropdown from "./navbar/MainDropdown";
 import ListItems from "./navbar/ListItems";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

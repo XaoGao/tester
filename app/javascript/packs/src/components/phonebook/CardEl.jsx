@@ -39,7 +39,7 @@ const CardEl = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={10}>
               <Typography variant="h5" component="h2" className={classes.title}>
-                {props.attributes.sortLevel}) {props.attributes.name}
+                {props.attributes.sortLevel ? props.attributes.sortLevel : props.id}) {props.name}
               </Typography>
             </Grid>
             <Grid item xs={2}>

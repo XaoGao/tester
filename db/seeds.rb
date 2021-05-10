@@ -12,14 +12,20 @@ require 'faker'
 #   Department.create(name: d, lock: false, sort_level: i)
 # end
 
-Role.all.each do |role|
-  User.create(
-    role: role,
-    position: Position.default,
-    department: Department.default,
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    middle_name: Faker::Name.middle_name,
-    login: "#{role.name}",
-    password: 'password')
-end
+# Role.all.each do |role|
+#   User.create(
+#     role: role,
+#     position: Position.default,
+#     department: Department.default,
+#     first_name: Faker::Name.first_name,
+#     last_name: Faker::Name.last_name,
+#     middle_name: Faker::Name.middle_name,
+#     login: "#{role.name}",
+#     password: 'password')
+# end
+# User.all.each do |user|
+#   # phone = Phone.create!(number: Faker::PhoneNumber.cell_phone)
+
+#   user.phone = phone
+#   user.save
+# end

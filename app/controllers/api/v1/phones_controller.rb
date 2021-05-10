@@ -1,4 +1,5 @@
 class Api::V1::PhonesController < Api::ApiController
+  before_action :authorized
   def index
     phones = Phone.all
     render_ok({ phones: PhoneSerializer.new(phones) })

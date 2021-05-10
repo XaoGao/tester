@@ -34,6 +34,7 @@ const Position = (props) => {
     <CardEl
       key={p.id}
       id={p.id}
+      name={p.attributes.name}
       attributes={p.attributes}
       buttonName="Редактировать"
       update={props.updatePosition}

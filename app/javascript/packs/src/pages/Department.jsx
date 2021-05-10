@@ -33,6 +33,7 @@ const Department = (props) => {
     <CardEl
       key={d.id}
       id={d.id}
+      name={d.attributes.name}
       attributes={d.attributes}
       buttonName="Редактировать"
       update={props.updateDepartment}

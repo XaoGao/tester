@@ -1,8 +1,13 @@
-import { getAllPhonesApi, updatePhoneApi } from "../http/phoneApi";
+import {
+  getAllPhonesApi,
+  updatePhoneApi,
+  createPhoneApi,
+} from "../http/phoneApi";
 
 const SET_PHONES = "phones/SET_PHONES";
 const SET_PHONE = "phones/SET_PHONE";
-const SET_LOADING = "department/SET_LOADING";
+const ADD_PHONE = "phones/ADD_PHONE";
+const SET_LOADING = "phones/SET_LOADING";
 
 const initialState = {
   loading: false,
@@ -21,6 +26,11 @@ const phoneReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+    case ADD_PHONE:
+      return {
+        ...state,
+        phones: state.phone.concat(action.payload.phone),
+      };
     default:
       return state;
   }
@@ -38,11 +48,15 @@ const setPhone = (phone) => ({
   payload: { phone: phone },
 });
 
+const addPhone = (phone) => ({
+  type: ADD_PHONE,
+  payload: { phone: phone },
+});
+
 const setLoading = (flag) => ({
   type: SET_LOADING,
   payload: { loading: flag },
 });
-
 
 export const getPhones = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -55,10 +69,17 @@ export const getPhones = () => async (dispatch) => {
     .finally(() => dispatch(setLoading(false)));
 };
 export const updatePhone = (id, number) => async (dispatch) => {
-  return await updatePhoneApi(id, number)
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(setPhone(response.data.phone.data));
-      }
-    })
-}
+  return await updatePhoneApi(id, number).then((response) => {
+    if (response.status === 200) {
+      dispatch(setPhone(response.data.phone.data));
+    }
+  });
+};
+
+export const createPhone = (number) => async (dispatch) => {
+  return await createPhoneApi(number).then((response) => {
+    if (response.status === 200) {
+      dispatch(addPhone(response.data.phone.data));
+    }
+  });
+};

@@ -3,6 +3,7 @@
 # Table name: phones
 #
 #  id         :integer          not null, primary key
+#  lock       :boolean          default(FALSE), not null
 #  number     :string           default(""), not null
 #  slug       :string           default("")
 #  created_at :datetime         not null

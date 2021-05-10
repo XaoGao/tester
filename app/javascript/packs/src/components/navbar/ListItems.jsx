@@ -2,7 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { DEPARTMENT_ROUTE, HOME_ROUTE, PHONES_ROUTE, POSITION_ROUTE } from "../../utils/consts";
+import { HOME_ROUTE } from "../../utils/consts";
+import PhonebookDropdown from "./PhonebookDropdown";
 
 const useStyles = makeStyles((theme) => ({
   navDisplayFlex: {
@@ -28,21 +29,7 @@ const ListItems = () => {
           <ListItemText primary="Tester" />
         </ListItem>
       </Link>
-      <Link to={POSITION_ROUTE} className={classes.linkText}>
-        <ListItem button>
-          <ListItemText primary="Должность" />
-        </ListItem>
-      </Link>
-      <Link to={DEPARTMENT_ROUTE} className={classes.linkText}>
-        <ListItem button>
-          <ListItemText primary="Отделы" />
-        </ListItem>
-      </Link>
-      <Link to={PHONES_ROUTE} className={classes.linkText}>
-        <ListItem button>
-          <ListItemText primary="Телефоны" />
-        </ListItem>
-      </Link>
+      <PhonebookDropdown/>
     </List>
   );
 };
